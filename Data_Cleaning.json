@@ -1,0 +1,303 @@
+{
+  "paragraphs": [
+    {
+      "text": "%spark.pyspark\n\noriginal = spark.read.csv(\"s3://project-aaar/2014_data.csv\", header = True)",
+      "user": "anonymous",
+      "dateUpdated": "2019-12-08T01:50:30+0000",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1575769501405_-1591482076",
+      "id": "20191207-005307_2008670532",
+      "dateCreated": "2019-12-08T01:45:01+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "focus": true,
+      "$$hashKey": "object:102",
+      "dateFinished": "2019-12-08T01:50:31+0000",
+      "dateStarted": "2019-12-08T01:50:30+0000"
+    },
+    {
+      "text": "%spark.pyspark\n\noriginal.dtypes",
+      "user": "anonymous",
+      "dateUpdated": "2019-12-08T01:50:33+0000",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "[('resident_status', 'string'), ('education_1989_revision', 'string'), ('education_2003_revision', 'string'), ('education_reporting_flag', 'string'), ('month_of_death', 'string'), ('sex', 'string'), ('detail_age_type', 'string'), ('detail_age', 'string'), ('age_substitution_flag', 'string'), ('age_recode_52', 'string'), ('age_recode_27', 'string'), ('age_recode_12', 'string'), ('infant_age_recode_22', 'string'), ('place_of_death_and_decedents_status', 'string'), ('marital_status', 'string'), ('day_of_week_of_death', 'string'), ('current_data_year', 'string'), ('injury_at_work', 'string'), ('manner_of_death', 'string'), ('method_of_disposition', 'string'), ('autopsy', 'string'), ('activity_code', 'string'), ('place_of_injury_for_causes_w00_y34_except_y06_and_y07_', 'string'), ('icd_code_10th_revision', 'string'), ('358_cause_recode', 'string'), ('113_cause_recode', 'string'), ('130_infant_cause_recode', 'string'), ('39_cause_recode', 'string'), ('number_of_entity_axis_conditions', 'string'), ('entity_condition_1', 'string'), ('entity_condition_2', 'string'), ('entity_condition_3', 'string'), ('entity_condition_4', 'string'), ('entity_condition_5', 'string'), ('entity_condition_6', 'string'), ('entity_condition_7', 'string'), ('entity_condition_8', 'string'), ('entity_condition_9', 'string'), ('entity_condition_10', 'string'), ('entity_condition_11', 'string'), ('entity_condition_12', 'string'), ('entity_condition_13', 'string'), ('entity_condition_14', 'string'), ('entity_condition_15', 'string'), ('entity_condition_16', 'string'), ('entity_condition_17', 'string'), ('entity_condition_18', 'string'), ('entity_condition_19', 'string'), ('entity_condition_20', 'string'), ('number_of_record_axis_conditions', 'string'), ('record_condition_1', 'string'), ('record_condition_2', 'string'), ('record_condition_3', 'string'), ('record_condition_4', 'string'), ('record_condition_5', 'string'), ('record_condition_6', 'string'), ('record_condition_7', 'string'), ('record_condition_8', 'string'), ('record_condition_9', 'string'), ('record_condition_10', 'string'), ('record_condition_11', 'string'), ('record_condition_12', 'string'), ('record_condition_13', 'string'), ('record_condition_14', 'string'), ('record_condition_15', 'string'), ('record_condition_16', 'string'), ('record_condition_17', 'string'), ('record_condition_18', 'string'), ('record_condition_19', 'string'), ('record_condition_20', 'string'), ('race', 'string'), ('bridged_race_flag', 'string'), ('race_imputation_flag', 'string'), ('race_recode_3', 'string'), ('race_recode_5', 'string'), ('hispanic_origin', 'string'), ('hispanic_originrace_recode', 'string')]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1575769501406_-1482031474",
+      "id": "20191208-011059_1420113632",
+      "dateCreated": "2019-12-08T01:45:01+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:103",
+      "dateFinished": "2019-12-08T01:50:33+0000",
+      "dateStarted": "2019-12-08T01:50:33+0000"
+    },
+    {
+      "text": "%spark.pyspark\n\neducation_conditions = when(original.education_reporting_flag == '0',\\\n                        when(original.education_1989_revision == '00', '0')\\\n                        .when(original.education_1989_revision.isin(['01', '02', '03', '04', '06', '07', '08']), '1')\\\n                        .when(original.education_1989_revision.isin(['09', '10', '11']), '2')\\\n                        .when(original.education_1989_revision == '12', '3')\\\n                        .when(original.education_1989_revision == '13', '4')\\\n                        .when(original.education_1989_revision == '14', '5')\\\n                        .when(original.education_1989_revision.isin(['15', '16']), '6')\\\n                        .when(original.education_1989_revision == '17', '7')\\\n                        .when(original.education_1989_revision == '99', '9')\\\n                        .otherwise(original.education_2003_revision))\\\n                        .when(original.education_reporting_flag == '1', original.education_2003_revision)\\\n                        .otherwise(original.education_2003_revision)\n                        \noriginal = original.withColumn('education', education_conditions)",
+      "user": "anonymous",
+      "dateUpdated": "2019-12-08T01:50:35+0000",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1575769501406_1832807960",
+      "id": "20191208-010844_234602219",
+      "dateCreated": "2019-12-08T01:45:01+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:104",
+      "dateFinished": "2019-12-08T01:50:35+0000",
+      "dateStarted": "2019-12-08T01:50:35+0000"
+    },
+    {
+      "text": "%spark.pyspark\n\nage_condition = when(original.detail_age_type == '1', original.detail_age.cast('float')*12.0)\\\n                .when(original.detail_age_type == '2', original.detail_age.cast('float'))\\\n                .when(original.detail_age_type == '4', original.detail_age.cast('float')/30.417)\\\n                .when(original.detail_age_type == '5', original.detail_age/8760)\\\n                .when(original.detail_age_type == '2', original.detail_age.cast('float')/720.0)\\\n                .otherwise(-1)\n\noriginal = original.withColumn('age', age_condition)",
+      "user": "anonymous",
+      "dateUpdated": "2019-12-08T01:50:38+0000",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1575769501406_-1247639047",
+      "id": "20191208-011824_1162513163",
+      "dateCreated": "2019-12-08T01:45:01+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:105",
+      "dateFinished": "2019-12-08T01:50:38+0000",
+      "dateStarted": "2019-12-08T01:50:38+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      }
+    },
+    {
+      "text": "%spark.pyspark\n\n# Dropping irrelevant columns\n\ncols = ['education_reporting_flag', 'education_1989_revision', 'education_2003_revision' , 'age_substitution_flag', 'age_recode_27', 'age_recode_52', 'age_recode_12', 'icd_code_10th_revision', 'infant_age_recode_22', 'current_data_year', '358_cause_recode', '130_infant_cause_recode', 'reserved_position', 'number_of_entity_axis_conditions', 'number_of_record_axis_conditions', 'age_substitution_flag', 'bridged_race_flag', 'race_imputation_flag', 'race_recode_3', 'race_recode_5', 'hispanic_origin', 'hispanic_originrace_recode', 'detail_age_type', 'detail_age']\n\noriginal = original.drop(*cols)\n\nfor i in range(1, 21):\n    col = 'entity_condition_'+str(i)\n    original = original.drop(col)\n    \nfor i in range(1,21):\n    col = 'record_condition_'+str(i)\n    original = original.drop(col)",
+      "user": "anonymous",
+      "dateUpdated": "2019-12-08T01:50:40+0000",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1575769501407_511073901",
+      "id": "20191208-011243_671229825",
+      "dateCreated": "2019-12-08T01:45:01+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:107",
+      "dateFinished": "2019-12-08T01:50:40+0000",
+      "dateStarted": "2019-12-08T01:50:40+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      }
+    },
+    {
+      "text": "%spark.pyspark\n\noriginal.show(3)",
+      "user": "anonymous",
+      "dateUpdated": "2019-12-08T01:50:42+0000",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+---------------+--------------+---+-----------------------------------+--------------+--------------------+--------------+---------------+---------------------+-------+-------------+------------------------------------------------------+----------------+---------------+----+---------+------+\n|resident_status|month_of_death|sex|place_of_death_and_decedents_status|marital_status|day_of_week_of_death|injury_at_work|manner_of_death|method_of_disposition|autopsy|activity_code|place_of_injury_for_causes_w00_y34_except_y06_and_y07_|113_cause_recode|39_cause_recode|race|education|   age|\n+---------------+--------------+---+-----------------------------------+--------------+--------------------+--------------+---------------+---------------------+-------+-------------+------------------------------------------------------+----------------+---------------+----+---------+------+\n|              1|            01|  M|                                  4|             M|                   4|             U|              7|                    C|      N|         null|                                                  null|             070|             24|  01|        2|1044.0|\n|              1|            01|  M|                                  4|             D|                   3|             U|              7|                    C|      N|         null|                                                  null|             062|             21|  01|        2| 696.0|\n|              1|            01|  F|                                  4|             W|                   2|             U|              7|                    C|      N|         null|                                                  null|             086|             28|  01|        7| 900.0|\n+---------------+--------------+---+-----------------------------------+--------------+--------------------+--------------+---------------+---------------------+-------+-------------+------------------------------------------------------+----------------+---------------+----+---------+------+\nonly showing top 3 rows\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1575769501407_-661473184",
+      "id": "20191207-014345_506777564",
+      "dateCreated": "2019-12-08T01:45:01+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:108",
+      "dateFinished": "2019-12-08T01:50:42+0000",
+      "dateStarted": "2019-12-08T01:50:42+0000"
+    },
+    {
+      "text": "%spark.pyspark\n\noriginal.coalesce(1).write.option(\"header\", \"true\").csv(\"s3://project-aaar/new_data\")",
+      "user": "anonymous",
+      "dateUpdated": "2019-12-08T01:50:45+0000",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1575769501408_1519014793",
+      "id": "20191207-015703_598355485",
+      "dateCreated": "2019-12-08T01:45:01+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:110",
+      "dateFinished": "2019-12-08T01:51:14+0000",
+      "dateStarted": "2019-12-08T01:50:45+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      }
+    },
+    {
+      "text": "%spark.pyspark\n",
+      "user": "anonymous",
+      "dateUpdated": "2019-12-08T01:50:45+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1575769845673_-398232447",
+      "id": "20191208-015045_285231065",
+      "dateCreated": "2019-12-08T01:50:45+0000",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500,
+      "focus": true,
+      "$$hashKey": "object:1129"
+    }
+  ],
+  "name": "Arushi 12-6",
+  "id": "2EX4W3H6A",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false,
+    "looknfeel": "default",
+    "personalizedMode": "false"
+  },
+  "info": {}
+}
